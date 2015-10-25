@@ -1,15 +1,23 @@
 package com.example.mitrikyle.jambuds;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,45 +25,51 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ExperienceListFragment extends ListFragment {
+public class ExperienceListFragment extends Fragment {
 
 
     private static final String TAG =  "ExperienceListFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setupAdapter();
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-    }
-
-    private class ExperienceItemAdapter extends ArrayAdapter<String> {
-        public ExperienceItemAdapter(List<String> experienceItems){
-            super(getActivity(), 0, experienceItems);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent){
-            if(convertView == null){
-                convertView = getActivity().getLayoutInflater()
-                        .inflate(R.layout.list_item_experience, null);
-            }
-
-            String item = getItem(position);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View convertView = inflater.inflate(R.layout.fragment_experience, container, false);
 
             TextView textView = (TextView) convertView.findViewById(R.id.instrumentTextView);
-            textView.setText(item);
-            CheckBox beginnerCheckBox = (CheckBox)convertView.findViewById(R.id.beginnerCheckBox);
-            CheckBox intermediateCheckBox = (CheckBox)convertView.findViewById(R.id.intermediateCheckBox);
-            CheckBox advancedCheckBox = (CheckBox)convertView.findViewById(R.id.advancedCheckBox);
+            textView.setText((String)ParseUser.getCurrentUser().get("Instrument"));
+            final CheckBox beginnerCheckBox = (CheckBox)convertView.findViewById(R.id.beginnerCheckBox);
+            final CheckBox intermediateCheckBox = (CheckBox)convertView.findViewById(R.id.intermediateCheckBox);
+            final CheckBox advancedCheckBox = (CheckBox)convertView.findViewById(R.id.advancedCheckBox);
+            Button experienceSubmitButton = (Button)convertView.findViewById(R.id.experienceSubmitButton);
+            experienceSubmitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (beginnerCheckBox.isChecked()) {
+                        ParseUser.getCurrentUser().put("experience", "Beginner");
+                    } else if (intermediateCheckBox.isChecked()) {
+                        ParseUser.getCurrentUser().put("experience", "Intermediate");
+                    } else if (advancedCheckBox.isChecked()) {
+                        ParseUser.getCurrentUser().put("experience", "Advanced");
+                    }
 
+                    startActivity(new Intent(getActivity(), JamListActivity.class));
+
+                    ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            Log.d("TAG", "EXPERIENCE SAVED");
+                        }
+                    });
+                }
+            });
             return convertView;
         }
-    }
+
 
     public void setupAdapter() {
         /*
@@ -82,12 +96,6 @@ public class ExperienceListFragment extends ListFragment {
             }
         });
     } */
-        ArrayList<String> stuff = new ArrayList<String>();
-        stuff.add("Test");
-        stuff.add("Rekt");
-        stuff.add("Piano and Viola");
-        setListAdapter(new ExperienceItemAdapter(stuff));
+
     }
-
-
 }

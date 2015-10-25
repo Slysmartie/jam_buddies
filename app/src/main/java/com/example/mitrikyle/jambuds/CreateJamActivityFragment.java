@@ -3,10 +3,16 @@ package com.example.mitrikyle.jambuds;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -21,17 +27,26 @@ public class CreateJamActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_create_jam, container, false);
-    }
-
-    /**Called when the user clicks the Submit button
-     * For test purposes
-     */
-    public void submitMessage(View view) {
-        Intent intent = new Intent(getActivity(), CreateJamActivity.class);
-        EditText editText = (EditText) view.findViewById(R.id.enter_title_message);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+        View v = inflater.inflate(R.layout.fragment_create_jam, container, false);
+        final EditText jamTitleEditText = (EditText) v.findViewById(R.id.titleEditText);
+        Button createJamButton = (Button)v.findViewById(R.id.jamCreateButton);
+        createJamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String jamTitle = jamTitleEditText.getText().toString();
+                Jam jam = new Jam();
+                jam.setTitle(jamTitle);
+                jam.setCreator(ParseUser.getCurrentUser());
+                jam.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.d("JAM", "THE JAM IS TOASTED");
+                    }
+                });
+                Intent intent = new Intent(getActivity(),JamListActivity.class);
+                startActivity(intent);
+            }
+        });
+        return v;
     }
 }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +24,16 @@ import java.util.List;
  * A placeholder fragment containing a simple view.
  */
 public class JamListFragment extends ListFragment {
-
+    public static final String EXTRA_JAM_ID = "com.exmaple.mitrikyle.jambuds.JAM_ID";
     private static final String TAG =  "JamListFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // if user not logged in ,send to login
+        if (ParseUser.getCurrentUser() == null){
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+        }
         setupAdapter();
     }
 
@@ -36,7 +41,10 @@ public class JamListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Intent jamIntent = new Intent(getActivity(), JamActivity.class);
-        
+        Jam jam = (Jam) getListAdapter().getItem(position);
+        jamIntent.putExtra(EXTRA_JAM_ID, jam.getObjectId() );
+        startActivity(jamIntent); // MIGHT BE BROKEN RIP
+
     }
 
     private class JamItemAdapter extends ArrayAdapter<Jam> {
@@ -53,7 +61,7 @@ public class JamListFragment extends ListFragment {
 
             Jam item = getItem(position);
 
-            TextView textView = (TextView) convertView.findViewById(R.id.jamTitleTextview);
+            TextView textView = (TextView) convertView.findViewById(R.id.jamTitleTextView);
             textView.setText(item.getTitle());
             return convertView;
         }

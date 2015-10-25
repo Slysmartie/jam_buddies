@@ -13,8 +13,8 @@
         android:text="@string/enter_title_message"
         android:id="@+id/title" />
 
-    <EditText android:id="@+id/enter_title_message"
-        android:layout_width="wrap_content"
+    <EditText android:id="@+id/titleEditText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:id="@+id/other_instruments" />
 
     <EditText android:id="@+id/enter_other_instruments_message"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
@@ -36,7 +36,7 @@
         android:id="@+id/genres" />
 
     <EditText android:id="@+id/enter_genre_message"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
@@ -46,16 +46,20 @@
         android:text="@string/enter_location_message"
         android:id="@+id/location" />
     <EditText android:id="@+id/enter_location_message"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <EditText android:id="@+id/enter_description_message"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_description_message" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView13" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_submit"
-        android:onClick="submitMessage"/>
+        android:onClick="submitMessage"
+        android:id="@+id/jamCreateButton" />
 </LinearLayout>

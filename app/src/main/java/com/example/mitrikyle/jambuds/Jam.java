@@ -53,6 +53,13 @@ public class Jam extends ParseObject{
         put("title", title);
     }
 
+    public String getGenre(){
+        return getString("genre");
+    }
+
+    public void setGenre(String genre){
+        put("genre", genre);
+    }
 
 
 }

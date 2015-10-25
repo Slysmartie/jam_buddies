@@ -87,6 +87,11 @@ public class JamListActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), ExperienceActivity.class));
             return true;
         }
+
+        if (id == R.id.my_jams){
+            startActivity(new Intent(getApplicationContext(), MyJamsActivity.class));
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

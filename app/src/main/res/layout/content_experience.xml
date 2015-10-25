@@ -7,16 +7,10 @@
 
     <fragment  android:id="@+id/fragment"
     android:name="com.example.mitrikyle.jambuds.ExperienceListFragment"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent" android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:layout="@layout/fragment_experience"
         android:layout_marginTop="55dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SUBMNIT"
-        android:id="@+id/experienceSubmitButton"
-        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

@@ -14,6 +14,9 @@ import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -27,10 +30,11 @@ public class LoginActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         Button loginButton = (Button) v.findViewById(R.id.loginButton);
+        final List<String> permissions = Arrays.asList("public_profile");
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParseFacebookUtils.logInWithReadPermissionsInBackground(getActivity(),null, new LogInCallback() {
+                ParseFacebookUtils.logInWithReadPermissionsInBackground(getActivity(),permissions, new LogInCallback() {
                     @Override
                     public void done(ParseUser user, ParseException err) {
                         if (user == null) {
