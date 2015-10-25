@@ -20,8 +20,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="John Smith"
         android:id="@+id/jamNameTextView"
         android:layout_below="@+id/jamTitleTextView"
         android:layout_alignParentLeft="true"
@@ -30,7 +30,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Description"
         android:id="@+id/jamDescriptionTextView"
         android:layout_below="@+id/jamNameTextView"
@@ -41,7 +41,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Location"
         android:id="@+id/jamLocationTextView"
         android:layout_below="@+id/jamDescriptionTextView"
@@ -51,7 +51,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Date"
         android:id="@+id/jamDateTextView"
         android:layout_below="@+id/jamLocationTextView"
@@ -61,7 +61,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Genre"
         android:id="@+id/jamGenreTextView"
         android:layout_below="@+id/jamDateTextView"
@@ -75,5 +75,15 @@
         android:id="@+id/jamJoinButton"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Instrument"
+        android:id="@+id/instrumentTextView"
+        android:layout_below="@+id/jamNameTextView"
+        android:layout_alignRight="@+id/jamNameTextView"
+        android:layout_alignEnd="@+id/jamNameTextView" />
 
 </RelativeLayout>

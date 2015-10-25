@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.parse.Parse;
@@ -42,9 +43,9 @@ public class ExperienceListFragment extends Fragment {
 
             TextView textView = (TextView) convertView.findViewById(R.id.instrumentTextView);
             textView.setText((String)ParseUser.getCurrentUser().get("Instrument"));
-            final CheckBox beginnerCheckBox = (CheckBox)convertView.findViewById(R.id.beginnerCheckBox);
-            final CheckBox intermediateCheckBox = (CheckBox)convertView.findViewById(R.id.intermediateCheckBox);
-            final CheckBox advancedCheckBox = (CheckBox)convertView.findViewById(R.id.advancedCheckBox);
+            final RadioButton beginnerCheckBox = (RadioButton)convertView.findViewById(R.id.beginnerCheckBox);
+            final RadioButton intermediateCheckBox = (RadioButton)convertView.findViewById(R.id.intermediateCheckBox);
+            final RadioButton advancedCheckBox = (RadioButton)convertView.findViewById(R.id.advancedCheckBox);
             Button experienceSubmitButton = (Button)convertView.findViewById(R.id.experienceSubmitButton);
             experienceSubmitButton.setOnClickListener(new View.OnClickListener() {
                 @Override

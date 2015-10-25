@@ -30,9 +30,6 @@ public class JamActivityFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mId = getActivity().getIntent().getStringExtra(JamListFragment.EXTRA_JAM_ID);
-
-
-
     }
 
     @Override
@@ -45,6 +42,8 @@ public class JamActivityFragment extends Fragment {
         final TextView jamLocationTextView = (TextView) v.findViewById(R.id.jamLocationTextView);
         final TextView jamDateTextView = (TextView) v.findViewById(R.id.jamDateTextView);
         final TextView jamGenreTextView = (TextView) v.findViewById(R.id.jamGenreTextView);
+        final TextView jamInstrumentTextView = (TextView) v.findViewById(R.id.instrumentTextView);
+
         Button jamJoinButton = (Button)v.findViewById(R.id.jamJoinButton);
         jamJoinButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,16 +65,11 @@ public class JamActivityFragment extends Fragment {
             public void done(Jam object, ParseException e) {
                 mJam = object;
                 jamTitleTextView.setText(mJam.getTitle());
-                mJam.getCreator().fetchIfNeededInBackground(new GetCallback<ParseObject>() {
-                    @Override
-                    public void done(ParseObject object, ParseException e) {
-                        jamNameTextView.setText(((ParseUser)object).getUsername());
-                    }
-                });
                 jamDescriptionTextView.setText(mJam.getDescription());
                 jamLocationTextView.setText(mJam.getLocation());
                 jamDateTextView.setText(mJam.getDate());
                 jamGenreTextView.setText(mJam.getGenre());
+                jamInstrumentTextView.setText(mJam.getInstrument());
             }
         });
 

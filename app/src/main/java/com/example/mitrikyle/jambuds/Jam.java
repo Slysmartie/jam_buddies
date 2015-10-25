@@ -45,6 +45,14 @@ public class Jam extends ParseObject{
         put("date", date);
     }
 
+    public String getTime(){
+        return getString("time");
+    }
+
+    public void setTime(String time){
+        put("time", time);
+    }
+
     public String getTitle(){
         return getString("title");
     }
@@ -61,5 +69,11 @@ public class Jam extends ParseObject{
         put("genre", genre);
     }
 
+    public void setInstrument(String instrument){
+        put("instrument", instrument);
+    }
 
+    public String getInstrument() {
+        return getString("instrument");
+    }
 }
