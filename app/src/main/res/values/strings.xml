@@ -5,4 +5,14 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_create_jam">CreateJamActivity</string>
     <string name="title_activity_jam">JamActivity</string>
+    <string name="enter_title_message">Title</string>
+    <string name="enter_other_instruments_message">Looking for</string>
+    <string name="enter_genre_message">Genres</string>
+    <string name="enter_date_time_message">Time</string>
+    <string name="enter_location_message">Location</string>
+    <string name="enter_description_message">Description</string>
+    <string name="button_submit">Submit</string>
+    <string name="facebook_app_id">1071035792931017</string>
+    <string name="title_activity_experience">ExperienceActivity</string>
+    <string name="title_activity_my_jams">MyJamsActivity</string>
 </resources>

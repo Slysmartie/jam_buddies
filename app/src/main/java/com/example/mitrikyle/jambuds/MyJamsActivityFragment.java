@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -23,9 +24,7 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class JamListFragment extends ListFragment {
-    public static final String EXTRA_JAM_ID = "com.exmaple.mitrikyle.jambuds.JAM_ID";
-    private static final String TAG =  "JamListFragment";
+public class MyJamsActivityFragment extends ListFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,8 +41,8 @@ public class JamListFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         Intent jamIntent = new Intent(getActivity(), JamActivity.class);
         Jam jam = (Jam) getListAdapter().getItem(position);
-        jamIntent.putExtra(EXTRA_JAM_ID, jam.getObjectId() );
-        startActivity(jamIntent); // MIGHT BE BROKEN RIP
+        jamIntent.putExtra(JamListFragment.EXTRA_JAM_ID, jam.getObjectId() );
+        startActivity(jamIntent); // MIGHT BE BROKEN RIP <-- boss sux
 
     }
 
@@ -68,44 +67,24 @@ public class JamListFragment extends ListFragment {
     }
 
     public void setupAdapter() {
-        /*
-        int location = getActivity().getIntent().getIntExtra("location", 1); // defaults to best dining hall
-        Bundle bundle = getArguments();
-        mQuery = bundle.getString("query", null);
-        ParseQuery<FoodItem> query = ParseQuery.getQuery(FoodItem.class);
-        query.whereEqualTo("location", location);
-        if (mQuery!=null) {
-            Log.d(TAG, "Query: " + mQuery);
-            query.whereStartsWith("title", mQuery);
-            // TODO query parse with search
-        }
-        query.findInBackground(new FindCallback<FoodItem>() {
-            @Override
-            public void done(List<FoodItem> list, ParseException e) {
-                if (e == null) {
-                    FoodItemAdapter adapter = new FoodItemAdapter(list);
-                    setListAdapter(adapter);
-                    Log.d(TAG, "Query is done");
-                } else {
-                    Log.d("FoodItem", "Error: " + e.getMessage());
-                }
-            }
-        });
-    } */
-        ParseQuery<Jam> query = ParseQuery.getQuery(Jam.class);
+        /*ParseQuery<Jam> query = ParseQuery.getQuery(Jam.class);
+        query.whereEqualTo()
         query.findInBackground(new FindCallback<Jam>() {
             @Override
             public void done(List<Jam> objects, ParseException e) {
                 JamItemAdapter adapter = new JamItemAdapter(objects);
                 setListAdapter(adapter);
             }
+        });*/
+        final ArrayList<Jam> list = new ArrayList<>();
+        Jam jam = (Jam)ParseUser.getCurrentUser().get("current_jam");
+        jam.fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                list.add( (Jam) object);
+            }
         });
-        /*
-        ArrayList<String> stuff = new ArrayList<String>();
-        stuff.add("Smarties");
-        stuff.add("Electric Scooter");
-        stuff.add("Piano and Viola");
-        setListAdapter(new JamItemAdapter(stuff)); */
+        JamItemAdapter adapter = new JamItemAdapter(list);
+        setListAdapter(adapter);
     }
-
 }
